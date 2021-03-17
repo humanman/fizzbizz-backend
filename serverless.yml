@@ -8,6 +8,7 @@ provider:
   name: aws
   runtime: python3.8
   lambdaHashingVersion: '20201221'
+  profile: ben_development
 
 iamRoleStatements:
   - Effect: "Allow"
@@ -66,3 +67,6 @@ functions:
             parameters: 
               paths: 
                 booking_id: true
+
+plugins:
+  - serverless-python-requirements

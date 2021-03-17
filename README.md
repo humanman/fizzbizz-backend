@@ -21,6 +21,20 @@ TODO:
 
 ### Invocation
 
+Endpoints:
+- GET    - /{stage}/api/v1/user/{username}
+- POST   - /{stage}/api/v1/user/new
+- PUT    - /{stage}/api/v1/user/{username}
+- DELETE - /{stage}/api/v1/user/{username}
+- GET    - /{stage}/api/v1/booking
+- POST   - /{stage}/api/v1/booking/new
+- PUT    - /{stage}/api/v1/booking/{booking_id}
+- DELETE - /{stage}/api/v1/booking/{booking_id}
+
+functions:
+- users: fizzbizz-backend-dev-users
+- bookings: fizzbizz-backend-dev-bookings
+
 ### Local development
 
  - to test functionality on AWS:
