@@ -9,16 +9,24 @@ table = dynamodb.Table('fizzbizz-bookings')
 
 def add_booking(event, context):
     try:
-        user_params = event['body']
-        print(json.dumps(user_params))
-        # should check for `username` and only add legal stuff instead of all params
-        username = user_params['username']
-        email = user_params['email']
+        booking_params = event['body']
+        print(json.dumps(booking_params))
+        booking_id   = booking_params['booking_id']
+        booking_name = booking_params['booking_name']
+        company      = booking_params['company']
+        room_id      = booking_params['room_id']
+        organizer_id = booking_params['organizer_id']
+        start_time   = booking_params['start_time']
+        end_time     = booking_params['end_time']
         table.put_item(
             Item = {
-                'username': username ,
-                'email': email,
-                'lists': ['1']
+                'booking_id': booking_id ,
+                'booking_name': booking_name,
+                'room_id' : room_id,
+                'company': company,
+                'organizer_id': organizer_id,
+                'start_time': start_time,
+                'end_time': end_time
             }
         )
         status = 200
@@ -33,41 +41,41 @@ def add_booking(event, context):
 def get_booking(event,context):
     try:
         params = event['pathParameters']
-        username = params['username']
+        booking_id = params['booking_id']
         response = table.get_item(
             Key = {
-                'username': username
+                'booking_id': booking_id
             }
         )
-        user_data = response['Item']
+        booking_data = response['Item']
         status = 200
     except:
-        user_data = 'Error'
+        booking_data = 'Error'
         status = 400
     finally:
         return {
             'statusCode': status,
-            'body': json.dumps(user_data)
+            'body': json.dumps(booking_data)
         }
 
 def update_booking(event,context):
     try:
         params = event['pathParameters']
-        username = params['username']
+        booking_id = params['booking_id']
         response = table.get_item(
             Key = {
-                'username': username
+                'booking_id': booking_id
             }
         )
-        user_data = response['Item']
+        booking_data = response['Item']
         status = 200
     except:
-        user_data = 'Error'
+        booking_data = 'Error'
         status = 400
     finally:
         return {
             'statusCode': status,
-            'body': json.dumps(user_data)
+            'body': json.dumps(booking_data)
         }
 
 def delete_booking(event,context):
@@ -99,19 +107,19 @@ def delete_booking(event,context):
 
 def bookings_handler(event, context):
   if event['httpMethod'] == 'POST':
-    print("running add user . . . ")
-    return add_user(event, context)
-  elif event['httpMethod'] == 'PUT':
-    print("running add list . . . ")
-    return add_list(event, context)
+    print("running add booking . . . ")
+    return add_booking(event, context)
   elif event['httpMethod'] == 'GET':
-    print("running get lists . . . ")
+    print("running get bookings . . . ")
     print(event)
-    return get_user(event, context)
+    return get_booking(event, context)
+  elif event['httpMethod'] == 'PUT':
+    print("running update booking. . . ")
+    return add_list(event, context)
   elif event['httpMethod'] == 'DELETE':
-    print("running delete user . . . ")
+    print("running delete booking . . . ")
     print(event)
-    return delete_user(event, context)
+    return delete_booking(event, context)
   return {
       'statusCode': 200,
       'body': json.dumps(context)

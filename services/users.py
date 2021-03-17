@@ -11,14 +11,16 @@ def add_user(event, context):
     try:
         user_params = event['body']
         print(json.dumps(user_params))
-        # should check for `username` and only add legal stuff instead of all params
         username = user_params['username']
-        email = user_params['email']
+        email    = user_params['email']
+        company  = user_params['company']
         table.put_item(
             Item = {
-                'username': username ,
+                'uid': uid,
+                'username': username,
                 'email': email,
-                'lists': ['1']
+                'company': company,
+                'bookings': []
             }
         )
         status = 200
@@ -54,7 +56,7 @@ def update_user(event,context):
     try:
         params = event['pathParameters']
         username = params['username']
-        response = table.get_item(
+        response = table.put_item(
             Key = {
                 'username': username
             }
@@ -102,13 +104,13 @@ def users_handler(event, context):
   if event['httpMethod'] == 'POST':
     print("running add user . . . ")
     return add_user(event, context)
-  elif event['httpMethod'] == 'PUT':
-    print("running add list . . . ")
-    return add_list(event, context)
   elif event['httpMethod'] == 'GET':
-    print("running get lists . . . ")
+    print("running get user . . . ")
     print(event)
     return get_user(event, context)
+  elif event['httpMethod'] == 'PUT':
+    print("running update user . . . ")
+    return update_user(event, context)
   elif event['httpMethod'] == 'DELETE':
     print("running delete user . . . ")
     print(event)
