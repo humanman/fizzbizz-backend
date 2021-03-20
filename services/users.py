@@ -9,13 +9,25 @@ from botocore.exceptions import ClientError
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('fizzbizz-users')
 
+headers = {
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+}
+
 def add_user(event, context):
     # TODO: ENCRYPT/DECRYPT email
     try:
-        user_params = event['body']
+        user_params = json.loads(event['body'])
         print(json.dumps(user_params))
-        username    = user_params['username']
-        email       = user_params['email']
+        if hasattr(user_params, 'username'):
+            username  = user_params['username']
+        else:
+            username  =  'web3User'
+        if hasattr(user_params, 'email'):
+            email     = user_params['email']
+        else:
+            email     = 'web3User'
         publicAddr  = user_params['pubAddr']
         # create nonce every time
         nonce     = uuid.uuid4().hex
@@ -27,7 +39,7 @@ def add_user(event, context):
                 'email': email,
                 'pubAddr': publicAddr,
                 'company': company,
-                'bookings': []
+                # 'bookings': []
             }
         )
         status = 200
@@ -37,10 +49,11 @@ def add_user(event, context):
     finally:
         return {
             'statusCode': status,
-            'body' : {
+            'headers': headers,
+            'body' : json.dumps(str({
                 "user": username,
                 "nonce": nonce
-                }
+                }))
         }
     
 def get_user(event,context):
@@ -62,6 +75,7 @@ def get_user(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(get_user_res)
         }
 
@@ -82,6 +96,7 @@ def update_user(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(update_user_res)
         }
 
@@ -106,6 +121,7 @@ def delete_user(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(res)
         }
 

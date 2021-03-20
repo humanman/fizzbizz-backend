@@ -7,6 +7,12 @@ from botocore.exceptions import ClientError
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('fizzbizz-bookings')
 
+headers = {
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+}
+
 def add_booking(event, context):
     try:
         booking_params = event['body']
@@ -35,6 +41,7 @@ def add_booking(event, context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body' : {"user": username}
         }
     
@@ -55,6 +62,7 @@ def get_booking(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(booking_data)
         }
 
@@ -75,6 +83,7 @@ def update_booking(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(booking_data)
         }
 
@@ -100,6 +109,7 @@ def delete_booking(event,context):
     finally:
         return {
             'statusCode': status,
+            'headers': headers,
             'body': json.dumps(res)
         }
 
