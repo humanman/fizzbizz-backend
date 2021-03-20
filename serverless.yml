@@ -8,6 +8,8 @@ provider:
   name: aws
   runtime: python3.8
   lambdaHashingVersion: '20201221'
+  stage: dev
+  region: us-east-1
   profile: ben_development
 
 iamRoleStatements:
@@ -18,15 +20,11 @@ iamRoleStatements:
 
 functions:
   users:
-    handler: dist/services/users.users_handler
+    handler: services/users.users_handler
     events:
       - http:
-          path: api/v1/user/{username}
-          method: get
-          request: 
-            parameters: 
-              paths: 
-                username: true      
+          path: api/v1/user
+          method: get  
       - http:
           path: api/v1/user/new
           method: post
@@ -45,7 +43,7 @@ functions:
               paths: 
                 username: true
   bookings:
-    handler: dist/services/bookings.bookings_handler
+    handler: services/bookings.bookings_handler
     events:
       - http:
           path: api/v1/booking

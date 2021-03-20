@@ -1,0 +1,8 @@
+{
+    "path": "api/v1/user",
+    "httpMethod": "GET",
+    "queryStringParameters" : {
+      "pubAddr"  : "0xcacf0bd21cd7a2c2c4ace599b3edf72088dee85b",
+      "company"  : "COKE"
+    }
+  }

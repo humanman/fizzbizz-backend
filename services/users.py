@@ -2,96 +2,107 @@ import json
 import boto3
 import time
 import urllib
+import uuid
+# from cryptoaddress import EthereumAddress()
 from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('fizzbizz-users')
 
 def add_user(event, context):
+    # TODO: ENCRYPT/DECRYPT email
     try:
         user_params = event['body']
         print(json.dumps(user_params))
-        username = user_params['username']
-        email    = user_params['email']
+        username    = user_params['username']
+        email       = user_params['email']
+        publicAddr  = user_params['pubAddr']
+        # create nonce every time
+        nonce     = uuid.uuid4().hex
         company  = user_params['company']
         table.put_item(
             Item = {
-                'uid': uid,
+                'nonce': nonce,
                 'username': username,
                 'email': email,
+                'pubAddr': publicAddr,
                 'company': company,
                 'bookings': []
             }
         )
         status = 200
-    except:
-        status = 500
+    except Exception as e:
+        print(f"Error is: {e}")
+        status = 403
     finally:
         return {
             'statusCode': status,
-            'body' : {"user": username}
+            'body' : {
+                "user": username,
+                "nonce": nonce
+                }
         }
     
 def get_user(event,context):
     try:
-        params = event['pathParameters']
-        username = params['username']
-        response = table.get_item(
+        params   = event['queryStringParameters']
+        pubAddr  = params['pubAddr']
+        company = params['company']
+        get_user_res = table.get_item(
             Key = {
-                'username': username
+                'pubAddr': pubAddr,
+                'company': company
             }
         )
-        user_data = response['Item']
         status = 200
-    except:
-        user_data = 'Error'
-        status = 400
+    except Exception as e:
+        get_user_res = "Error"
+        print(f"Error is: {e}")
+        status = 403
     finally:
         return {
             'statusCode': status,
-            'body': json.dumps(user_data)
+            'body': json.dumps(get_user_res)
         }
 
 def update_user(event,context):
     try:
         params = event['pathParameters']
         username = params['username']
-        response = table.put_item(
+        update_user_res = table.put_item(
             Key = {
                 'username': username
             }
         )
-        user_data = response['Item']
         status = 200
-    except:
-        user_data = 'Error'
+    except Exception as e:
+        update_user_res = 'Error'
+        print(f"Error is: {e}")
         status = 400
     finally:
         return {
             'statusCode': status,
-            'body': json.dumps(user_data)
+            'body': json.dumps(update_user_res)
         }
 
 
 def delete_user(event,context):
     status = 400
-    res = "deleting user"
     try:
         params = event['pathParameters']
         print(params)
         username = params['username']
         print(username)
-        response = table.delete_item(
+        delete_user_res = table.delete_item(
             Key = {
                 'username': username
             }
         )
         status = 200
-        res = response
     except Exception as e:
         status = 400
-        res = e
-        print(e)
+        delete_user_res = 'Error'
+        print(f"Error is: {e}")
     finally:
         return {
             'statusCode': status,

@@ -1,0 +1,11 @@
+{
+    "path": "api/v1/user/new",
+    "httpMethod": "POST",
+    "body": {
+      "username" : "benUser",
+      "email"    : "benUser@email.com",
+      "pubAddr"  : "0xcacf0bd21cd7a2c2c4ace599b3edf72088dee85b",
+      "company"  : "COKE",
+      "bookings" : []
+    }
+  }

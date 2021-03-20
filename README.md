@@ -22,7 +22,7 @@ TODO:
 ### Invocation
 
 Endpoints:
-- GET    - /{stage}/api/v1/user/{username}
+- GET    - /{stage}/api/v1/user
 - POST   - /{stage}/api/v1/user/new
 - PUT    - /{stage}/api/v1/user/{username}
 - DELETE - /{stage}/api/v1/user/{username}
