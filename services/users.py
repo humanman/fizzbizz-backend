@@ -79,7 +79,7 @@ def get_user(event,context):
         return {
             'statusCode': status,
             'headers': headers,
-            'body': json.dumps(get_user_res)
+            'body': get_user_res
         }
 
 def update_user(event,context):
