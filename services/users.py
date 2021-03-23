@@ -62,14 +62,15 @@ def get_user(event,context):
         params   = event['queryStringParameters']
         pubAddr  = params['pubAddr']
         company = params['company']
-        get_user_res = table.get_item(
+        res = table.get_item(
             Key = {
                 'pubAddr': pubAddr,
                 'company': company
             }
         )
         status = 200
-        print(get_user_res)
+        print(res)
+        get_user_res = json.dumps(res['Item'])
     except Exception as e:
         get_user_res = "Error"
         print(f"Error is: {e}")
@@ -78,7 +79,7 @@ def get_user(event,context):
         return {
             'statusCode': status,
             'headers': headers,
-            'body': json.dumps(get_user_res['Item'])
+            'body': json.dumps(get_user_res)
         }
 
 def update_user(event,context):

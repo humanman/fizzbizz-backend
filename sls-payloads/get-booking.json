@@ -1,0 +1,7 @@
+{
+  "path": "api/v1/booking",
+  "httpMethod": "GET",
+  "queryStringParameters" : {
+    "booking_id"  : ""
+  }
+}

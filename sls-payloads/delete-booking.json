@@ -1,0 +1,7 @@
+{
+  "path": "api/v1/booking/{booking_id}",
+  "httpMethod": "DELETE",
+  "pathParameters" : {
+    "booking_id"  : ""
+  }
+}

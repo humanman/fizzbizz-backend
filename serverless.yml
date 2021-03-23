@@ -58,13 +58,9 @@ functions:
           method: post
           cors: true
       - http:
-          path: api/v1/booking/{booking_id}
+          path: api/v1/booking
           method: put
           cors: true
-          request: 
-            parameters: 
-              paths: 
-                booking_id: true
       - http:
           path: api/v1/booking/{booking_id}
           method: delete
