@@ -20,6 +20,7 @@ def add_user(event, context):
     try:
         user_params = json.loads(event['body'])
         print(json.dumps(user_params))
+        # if 'username' in user_params:
         if hasattr(user_params, 'username'):
             username  = user_params['username']
         else:
@@ -68,6 +69,7 @@ def get_user(event,context):
             }
         )
         status = 200
+        print(get_user_res)
     except Exception as e:
         get_user_res = "Error"
         print(f"Error is: {e}")
@@ -76,7 +78,7 @@ def get_user(event,context):
         return {
             'statusCode': status,
             'headers': headers,
-            'body': json.dumps(get_user_res)
+            'body': json.dumps(get_user_res['Item'])
         }
 
 def update_user(event,context):
