@@ -3,5 +3,9 @@
   "httpMethod": "DELETE",
   "pathParameters" : {
     "booking_id"  : ""
+  },
+  "queryStringParameters" : {
+    "company"  : "COKE"
   }
+
 }

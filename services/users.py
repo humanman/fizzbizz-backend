@@ -20,15 +20,12 @@ def add_user(event, context):
     try:
         user_params = json.loads(event['body'])
         print(json.dumps(user_params))
-        # if 'username' in user_params:
-        if hasattr(user_params, 'username'):
+        username  =  'web3User'
+        email = 'web3User'
+        if 'username' in user_params:
             username  = user_params['username']
-        else:
-            username  =  'web3User'
-        if hasattr(user_params, 'email'):
-            email     = user_params['email']
-        else:
-            email     = 'web3User'
+        if 'email' in user_params:
+            email = user_params['email']
         publicAddr  = user_params['pubAddr']
         # create nonce every time
         nonce     = uuid.uuid4().hex

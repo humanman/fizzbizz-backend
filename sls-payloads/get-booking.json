@@ -2,6 +2,7 @@
   "path": "api/v1/booking",
   "httpMethod": "GET",
   "queryStringParameters" : {
-    "booking_id"  : ""
+    "booking_id"  : "PEPSI|0-2|1-2|2-2|3-2|4-2|5-2",
+    "company" : "PEPSI"
   }
 }

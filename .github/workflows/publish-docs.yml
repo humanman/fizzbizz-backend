@@ -1,0 +1,24 @@
+# name: Publish Docs
+
+# on: push
+
+# jobs:
+#   publish-docs:
+#     name: Publish Docs
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Build Docs
+#         uses: ammaraskar/sphinx-action@master
+#         with:
+#           docs-folder: "docs/"
+#       - run: touch docs/build/html/.nojekyll
+#       - name: Deploy to GitHub Pages
+#         uses: crazy-max/ghaction-github-pages@v2
+#         with:
+#           target_branch: gh-pages
+#           build_dir: docs/build/html
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
