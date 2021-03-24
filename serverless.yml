@@ -12,7 +12,7 @@ provider:
   region: us-east-1
   # profile: ben_development
 
-  iamRoleStatements:
+  iam.role.statements:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"

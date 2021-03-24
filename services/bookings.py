@@ -203,7 +203,7 @@ def update_booking(event,context):
         }
 
 def delete_booking(event,context):
-    status = 400
+    status = 200
     res = "deleting booking"
     delete_booking_res = None
     try:
@@ -215,7 +215,7 @@ def delete_booking(event,context):
         # res = delete_helper(req, None)
         res = delete_helper(req)
         delete_booking_res = res
-        status = 200
+
         if delete_booking_res == 'Error':
             status = 403
     except Exception as e:
