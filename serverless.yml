@@ -12,11 +12,11 @@ provider:
   region: us-east-1
   # profile: ben_development
 
-iamRoleStatements:
-  - Effect: "Allow"
-    Action:
-      - "dynamodb:*"
-    Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/*"
 
 functions:
   users:
