@@ -32,7 +32,7 @@ def fetch_helper(req):
             # this method will always fetch all filtered by company
             # print(json.dumps(single_get)
         res = table.scan(FilterExpression=Key('company').eq(company))
-        fetch_helper_res = str(res["Items"])
+        fetch_helper_res = json.dumps(res["Items"])
         # print(fetch_helper_res)
     except Exception as e:
         fetch_helper_res = "Error"
@@ -44,24 +44,24 @@ def add_helper(req):
     company = req['company']
     res = None
     try:
-        item =  {
-            'booking_id': req['booking_id'],
-            'booking_name': req['booking_name'],
-            'room_id' : req['room_id'],
-            'company': company,
-            'organizer_id': req['organizer_id'],
-            'start_time': req['start_time'],
-            'end_time': req['end_time']
-        }
+        # item =  {
+        #     'booking_id': req['booking_id'],
+        #     'booking_name': req['booking_name'],
+        #     'room_id' : req['room_id'],
+        #     'company': company,
+        #     'organizer_id': req['organizer_id'],
+        #     'start_time': req['start_time'],
+        #     'end_time': req['end_time']
+        # }
         res = table.put_item(
             Item = {
-                'booking_id': req['booking_id'],
-                'booking_name': req['booking_name'],
-                'room_id' : req['room_id'],
-                'company': company,
-                'organizer_id': req['organizer_id'],
-                'start_time': req['start_time'],
-                'end_time': req['end_time']
+                "booking_id": req['booking_id'],
+                "booking_name": req['booking_name'],
+                "room_id": req['room_id'],
+                "company": company,
+                "organizer_id": req['organizer_id'],
+                "start_time": req['start_time'],
+                "end_time": req['end_time']
             }
         )
     except Exception as e:
@@ -73,21 +73,25 @@ def add_helper(req):
         # return fetch_helper({'company': company})
         return res
 
-def delete_helper(req, options):
+def delete_helper(req):
     try:
         booking_id = req['booking_id']
         company = req['company']
         item = { 'booking_id': booking_id}
         res = table.delete_item(
-            Key = item
+            Key = {
+                "booking_id" : booking_id,
+                "company": company
+            }
         )
+        res = "deleted"
         # return_all = fetch_helper()
     except Exception as e:
         print(f"Error is from delete_helper: {e}")
         res = 'Error'
     finally:
-        if options in globals():
-            return options.callback(options.payload)
+        # if options in globals():
+        #     return options.callback(options.payload)
         # return fetch_helper({'company': company})
         return res
 
@@ -129,7 +133,7 @@ def add_booking(event, context):
                 "start_time" : booking_params['start_time'],
                 "end_time" : booking_params['end_time']
             }
-            res = add_helper(json.dumps(reqPayload))
+            res = add_helper(reqPayload)
             add_booking_res = res
             status = 200
             if add_booking_res == 'Error':
@@ -203,12 +207,12 @@ def delete_booking(event,context):
     res = "deleting booking"
     delete_booking_res = None
     try:
-        booking_path_params = event['pathParameters']
-        booking_query_params = event['queryStringParameters']
-        print(params)
-        booking_id = booking_path_params['booking_id']
-        company = booking_query_params['company']
+        # booking_path_params = event['pathParameters']
+        delete_params = event['queryStringParameters']
+        booking_id = delete_params['booking_id']
+        company = delete_params['company']
         req = { 'booking_id': booking_id, 'company': company}
+        # res = delete_helper(req, None)
         res = delete_helper(req)
         delete_booking_res = res
         status = 200
