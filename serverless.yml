@@ -10,7 +10,7 @@ provider:
   lambdaHashingVersion: '20201221'
   stage: dev
   region: us-east-1
-  profile: ben_development
+  # profile: ben_development
 
 iamRoleStatements:
   - Effect: "Allow"
