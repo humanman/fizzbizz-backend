@@ -65,5 +65,3 @@ functions:
           path: api/v1/booking
           method: delete
           cors: true
-plugins:
-  - serverless-python-requirements
