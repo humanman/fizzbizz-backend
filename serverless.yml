@@ -1,5 +1,5 @@
-org: bensayeg
-app: fizzbizz-backend
+# org: bensayeg
+# app: fizzbizz-backend
 service: fizzbizz-backend
 
 frameworkVersion: '2'
@@ -7,12 +7,12 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: python3.8
-  lambdaHashingVersion: '20201221'
+  # lambdaHashingVersion: '20201221'
   stage: dev
   region: us-east-1
   # profile: ben_development
 
-  iam.role.statements:
+  iamRoleStatements:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
