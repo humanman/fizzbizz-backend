@@ -76,9 +76,9 @@ def get_user(event,context):
                 'company': company
             }
         )
-        status = 200
         print(res)
         if 'Item' in res:
+            status = 200
             get_user_res = json.dumps(res['Item'])
         else:
             get_user_res = 'new user'
@@ -88,6 +88,7 @@ def get_user(event,context):
         print(f"Error is: {e}")
         status = 403
     finally:
+        print(get_user_res)
         return {
             'statusCode': status,
             'headers': headers,
