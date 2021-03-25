@@ -67,7 +67,11 @@ def get_user(event,context):
         )
         status = 200
         print(res)
-        get_user_res = json.dumps(res['Item'])
+        if 'Item' in res:
+            get_user_res = json.dumps(res['Item'])
+        else:
+            get_user_res = 'new user'
+            status = 403
     except Exception as e:
         get_user_res = "Error"
         print(f"Error is: {e}")
