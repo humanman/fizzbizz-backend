@@ -65,6 +65,7 @@ def add_user(event, context):
         }
     
 def get_user(event,context):
+    print(event)
     try:
         params   = event['queryStringParameters']
         pubAddr  = params['pubAddr']
