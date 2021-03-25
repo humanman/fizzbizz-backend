@@ -89,7 +89,7 @@ def get_user(event,context):
     finally:
         print(get_user_res)
         return {
-            'statusCode': status,
+            'statusCode': 200,
             'headers': headers,
             'body': get_user_res
         }
