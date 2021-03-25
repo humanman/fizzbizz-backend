@@ -9,9 +9,19 @@ from botocore.exceptions import ClientError
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('fizzbizz-users')
 
+# def corshandler():
+#     corsOrigin = DEFAULT_ORIGIN; // default value
+#     const inputOrigin = R.path(['headers','origin'], event);
+
+#     if (R.test(ORIGIN_PATTERN, inputOrigin)) {
+#       corsOrigin = inputOrigin;
+#     }
+    
+
+
 headers = {
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'http://unkempt-advice.surge.sh/',
     'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
 }
 

@@ -10,7 +10,7 @@ table = dynamodb.Table('fizzbizz-bookings')
 
 headers = {
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'http://unkempt-advice.surge.sh/',
     'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
 }
 
