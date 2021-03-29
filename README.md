@@ -12,7 +12,7 @@ This is the result of a solo sprint challenge:
 - Users can cancel their own reservations
 
 
-- Check out the Front end over at [https://github.com/humanman/fizzbizz-frontend](FizzBizz Front End)
+- Check out the Front end over at [FizzBizz Front End](https://github.com/humanman/fizzbizz-frontend)
 
 ### Deployment
 
@@ -44,7 +44,7 @@ functions:
 
   - to test functionality locally:
   ``` serverless invoke local --function {function name} -s {stage} --path {test.json}```
-      - This may require spinning up a local instance of dynamoDB or similar. See instructions here: https://medium.com/better-programming/how-to-set-up-a-local-dynamodb-in-a-docker-container-and-perform-the-basic-putitem-getitem-38958237b968
+      - This may require spinning up a local instance of dynamoDB or similar. See instructions [here](https://medium.com/better-programming/how-to-set-up-a-local-dynamodb-in-a-docker-container-and-perform-the-basic-putitem-getitem-38958237b968)
 
   - 'test.json' is a file containg the uri, http method, and relevent data:
   ```
